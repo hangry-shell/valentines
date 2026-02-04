@@ -21,13 +21,17 @@ const MAX_YES_FONT_SCALE = 2.4;
 const MAX_YES_BUTTON_SCALE = 2.1;
 const YES_FONT_STEP = (MAX_YES_FONT_SCALE - 1) / NO_MESSAGES.length;
 const YES_BUTTON_STEP = (MAX_YES_BUTTON_SCALE - 1) / NO_MESSAGES.length;
-const NO_SCALE_STEP = 0.03;
+const NO_FONT_STEP = 0.05;
+const NO_BOX_STEP = 0.02;
+const MIN_NO_FONT_SCALE = 0.7;
+const MIN_NO_BOX_SCALE = 0.85;
 
 const App = () => {
   const [yesFontScale, setYesFontScale] = useState(1);
   const [yesButtonScale, setYesButtonScale] = useState(1);
   const [noIndex, setNoIndex] = useState(-1);
-  const [noScale, setNoScale] = useState(1);
+  const [noFontScale, setNoFontScale] = useState(1);
+  const [noBoxScale, setNoBoxScale] = useState(1);
   const [noHidden, setNoHidden] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
@@ -45,25 +49,22 @@ const App = () => {
     setYesButtonScale((prev) =>
       Math.min(MAX_YES_BUTTON_SCALE, prev + YES_BUTTON_STEP)
     );
-    setNoScale((prev) => prev - NO_SCALE_STEP);
+    setNoFontScale((prev) => Math.max(MIN_NO_FONT_SCALE, prev - NO_FONT_STEP));
+    setNoBoxScale((prev) => Math.max(MIN_NO_BOX_SCALE, prev - NO_BOX_STEP));
   };
 
   const handleYesClick = () => {
     setAccepted(true);
   };
 
-  if (accepted) {
-    return (
-      <main className="layout layout--yes">
-        <p className="yes-message">{YES_TITLE}</p>
-        <p className="yes-sub">{YES_RESPONSE}</p>
-        <img className="yes-image" src={smiski} alt="Smiski figure" />
-      </main>
-    );
-  }
-
-  return (
-    <main className="layout">
+  return accepted ? (
+    <main className="layout layout--yes" key="yes">
+      <p className="yes-message">{YES_TITLE}</p>
+      <p className="yes-sub">{YES_RESPONSE}</p>
+      <img className="yes-image" src={smiski} alt="Smiski figure" />
+    </main>
+  ) : (
+    <main className="layout" key="ask">
       <p className="prompt">{QUESTION_TITLE}</p>
       <div className="button-row" role="group" aria-label="Answer buttons">
         <button
@@ -81,7 +82,7 @@ const App = () => {
           <button
             className="button button--no"
             type="button"
-            style={{ "--button-scale": noScale, "--font-scale": noScale }}
+            style={{ "--button-scale": noBoxScale, "--font-scale": noFontScale }}
             onClick={handleNoClick}
             aria-live="polite"
           >
