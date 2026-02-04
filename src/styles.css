@@ -1,0 +1,117 @@
+:root {
+  --ink: #1b0e14;
+  --yes: #9be7c4;
+  --no: #ffb4c7;
+  --bg: #fff3f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(32px, 10vh, 96px) 16px 40px;
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Marker Felt", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+#root {
+  width: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prompt {
+  margin: 0;
+  font-size: clamp(1.8rem, 4.8vw, 2.8rem);
+  font-weight: 700;
+  text-align: center;
+  max-width: min(520px, 92vw);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(40px, 12vw, 160px);
+  width: 100%;
+  margin-top: clamp(84px, 20vh, 320px);
+}
+
+.button {
+  --button-scale: 1;
+  --font-scale: 1;
+  border: 3px solid var(--ink);
+  padding: 24px 32px;
+  border-radius: 16px;
+  font-size: calc(clamp(1.3rem, 3.4vw, 2.1rem) * var(--font-scale));
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--ink);
+  transform: translateY(0) scale(var(--button-scale));
+  transform-origin: center top;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  width: clamp(180px, 60vw, 260px);
+  text-align: center;
+  background: var(--yes);
+  box-shadow: 0 10px 0 rgba(27, 14, 20, 0.25);
+}
+
+.button--no {
+  background: var(--no);
+}
+
+.button__label {
+  display: block;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  hyphens: auto;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px) scale(var(--button-scale));
+  box-shadow: 0 14px 0 rgba(27, 14, 20, 0.3);
+}
+
+.layout--yes {
+  gap: 18px;
+  text-align: center;
+}
+
+.yes-message {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 700;
+}
+
+.yes-sub {
+  margin: 0;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+}
+
+.yes-image {
+  width: min(520px, 92vw);
+  height: auto;
+  margin-top: 28px;
+}
+
+@media (max-width: 700px) {
+  .button-row {
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 56px;
+  }
+}
