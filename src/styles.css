@@ -108,17 +108,12 @@ body {
   width: min(460px, 90vw);
   height: auto;
   margin-top: 24px;
-  opacity: 1;
-  animation: fade-in 0.8s ease;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.yes-image--loaded {
+  opacity: 1;
+  transform: translateY(0);
 }

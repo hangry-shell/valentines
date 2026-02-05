@@ -34,6 +34,7 @@ const App = () => {
   const [noBoxScale, setNoBoxScale] = useState(1);
   const [noHidden, setNoHidden] = useState(false);
   const [accepted, setAccepted] = useState(false);
+  const [smiskiLoaded, setSmiskiLoaded] = useState(false);
 
   const noLabel = noIndex < 0 ? "NO" : NO_MESSAGES[noIndex];
 
@@ -55,6 +56,7 @@ const App = () => {
 
   const handleYesClick = () => {
     setAccepted(true);
+    setSmiskiLoaded(false);
   };
 
   return accepted ? (
@@ -62,10 +64,13 @@ const App = () => {
       <p className="yes-message">{YES_TITLE}</p>
       <p className="yes-sub">{YES_RESPONSE}</p>
       <img
-        className="yes-image"
+        className={`yes-image${smiskiLoaded ? " yes-image--loaded" : ""}`}
         src={smiski}
         alt="Smiski figure"
         decoding="async"
+        loading="eager"
+        onLoad={() => setSmiskiLoaded(true)}
+        onError={() => setSmiskiLoaded(true)}
       />
     </main>
   ) : (
