@@ -4,12 +4,12 @@ import smiski from "./smiski.png";
 const NO_MESSAGES = [
   "are you sure?",
   "really sure?",
-  "absolutely sure?",
-  "pretty please?????",
-  "if you say no again, ill be sad...",
+  "absolutely sure???",
+  "come on pretty please?????",
+  "if you say no again, ill be very sad...",
   "WHY DID U PRESS IT IM GONNA CRY",
-  "PRESS IT AGAIN AND IM GONNA WATCH ONE WAY",
-  "u are breaking my heart...",
+  "PRESS IT AGAIN AND IM GONNA WATCH ONE WAY AND STEPPIN",
+  ":( u are breaking my heart...",
   "sosimgonnacry",
 ];
 
@@ -34,6 +34,7 @@ const App = () => {
   const [noBoxScale, setNoBoxScale] = useState(1);
   const [noHidden, setNoHidden] = useState(false);
   const [accepted, setAccepted] = useState(false);
+  const [smiskiLoaded, setSmiskiLoaded] = useState(false);
 
   const noLabel = noIndex < 0 ? "NO" : NO_MESSAGES[noIndex];
 
@@ -55,13 +56,21 @@ const App = () => {
 
   const handleYesClick = () => {
     setAccepted(true);
+    setSmiskiLoaded(false);
   };
 
   return accepted ? (
     <main className="layout layout--yes" key="yes">
       <p className="yes-message">{YES_TITLE}</p>
       <p className="yes-sub">{YES_RESPONSE}</p>
-      <img className="yes-image" src={smiski} alt="Smiski figure" />
+      <img
+        className={`yes-image${smiskiLoaded ? " yes-image--loaded" : ""}`}
+        src={smiski}
+        alt="Smiski figure"
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setSmiskiLoaded(true)}
+      />
     </main>
   ) : (
     <main className="layout" key="ask">
